@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2591782048437791541}
   - component: {fileID: -8371697722481783614}
   - component: {fileID: 567434259294274140}
+  - component: {fileID: 1744597679583860157}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -199,7 +200,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -278,3 +279,17 @@ MonoBehaviour:
   HP: 10
   maxHP: 10
   healthBar: {fileID: 0}
+--- !u!114 &1744597679583860157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750557316741297707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984374b06ac0fbb4f8c90a60106cbc38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryController
+  inventoryUI: {fileID: 0}
+  inventorySize: 10

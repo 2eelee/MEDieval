@@ -1,0 +1,15 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class InventoryController : MonoBehaviour
+{
+    [SerializeField] private UIInventoryPage inventoryUI;
+
+    public int inventorySize = 10;
+
+    private void Start()
+    {
+        inventoryUI.InitializeInventoryUI(inventorySize);
+    }
+}
