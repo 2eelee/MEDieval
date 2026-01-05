@@ -1,9 +1,10 @@
-using UnityEngine;
+using NUnit.Framework.Interfaces;
 using System.Collections;
+using UnityEngine;
 
 public class WorldItem : MonoBehaviour
 {
-    public ItemData itemData;
+    //public ItemData itemData;
     public int quantity = 1;
 
     // ★ 초기화가 안 되어 있으면 줍지 못하게 막는 안전장치
@@ -23,9 +24,15 @@ public class WorldItem : MonoBehaviour
     }
 
     // 적이 드랍할 때 호출
-    public void Init(ItemData data, int amount)
+    //public void Init(ItemData data, int amount)
+    //{
+    //    itemData = data;
+    //    quantity = amount;
+    //    initialized = true;
+    //}
+
+    public void Init(int amount)
     {
-        itemData = data;
         quantity = amount;
         initialized = true;
     }
@@ -68,19 +75,19 @@ public class WorldItem : MonoBehaviour
 
     void TryPickup()
     {
-        // 1. 아이템 데이터 확인
-        if (itemData == null)
-        {
-            Debug.LogError($"[오류] {gameObject.name} 아이템에 'Item Data'가 비어있습니다!");
-            return;
-        }
+        //// 1. 아이템 데이터 확인
+        //if (itemData == null)
+        //{
+        //    Debug.LogError($"[오류] {gameObject.name} 아이템에 'Item Data'가 비어있습니다!");
+        //    return;
+        //}
 
-        // 2. 인벤토리 연결 확인
-        if (Inventory.Instance == null)
-        {
-            Debug.LogError("[오류] 씬에 'Inventory'가 없습니다!");
-            return;
-        }
+        //// 2. 인벤토리 연결 확인
+        //if (Inventory.Instance == null)
+        //{
+        //    Debug.LogError("[오류] 씬에 'Inventory'가 없습니다!");
+        //    return;
+        //}
 
         // 3. 공격 캔슬 요청 (플레이어가 있다면)
         if (Player.Instance != null)
@@ -97,11 +104,11 @@ public class WorldItem : MonoBehaviour
         isPickingUp = true;
 
         // ★ 인벤토리에 아이템 추가
-        bool added = Inventory.Instance.AddItem(itemData, quantity);
+        //bool added = Inventory.Instance.AddItem(itemData, quantity);
 
-        if (added)
+        //if (added)
         {
-            Debug.Log($"아이템 획득: {itemData.itemName} ({quantity}개)");
+            //Debug.Log($"아이템 획득: {itemData.itemName} ({quantity}개)");
 
             // --- 날아가는 연출 (선택사항) ---
             float time = 0f;
@@ -124,11 +131,12 @@ public class WorldItem : MonoBehaviour
             }
 
             Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("인벤토리가 가득 찼습니다!");
-            isPickingUp = false; // 다시 주을 수 있게 리셋
+            //}
+            //else
+            //{
+            //    Debug.Log("인벤토리가 가득 찼습니다!");
+            //    isPickingUp = false; // 다시 주을 수 있게 리셋
+            //}
         }
     }
 }

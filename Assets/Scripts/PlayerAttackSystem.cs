@@ -9,7 +9,7 @@ public enum WeaponType { None, Melee, PotionBomb }
 public class WeaponSlot
 {
     public WeaponType type;
-    public ItemData itemData; // 연동을 위해 데이터 추가
+    //public ItemData itemData; // 연동을 위해 데이터 추가
     public GameObject specificPrefab; // 던질 물체 프리팹
 
     // -1이면 무제한 (근접무기), 양수면 소모품
@@ -39,7 +39,7 @@ public class PlayerAttackSystem : MonoBehaviour
     private Vector2 aimDirection = Vector2.down;
 
     // 상태 변수
-    private bool isAttacking = false;
+    private bool isAttack = false;
     private bool isCharging = false;
 
     private float chargeStartTime;
@@ -85,7 +85,7 @@ public class PlayerAttackSystem : MonoBehaviour
         }
 
         // 무기 교체 (C키)
-        if (!isAttacking && !isCharging && Input.GetKeyDown(KeyCode.C))
+        if (!isAttack && !isCharging && Input.GetKeyDown(KeyCode.C))
         {
             RotateWeaponSlots();
         }
@@ -95,7 +95,7 @@ public class PlayerAttackSystem : MonoBehaviour
         {
             if (slots[0].type == WeaponType.Melee)
             {
-                if (!isAttacking) HandleMeleeInput();
+                if (!isAttack) HandleMeleeInput();
             }
             else if (slots[0].type == WeaponType.PotionBomb)
             {
@@ -105,33 +105,33 @@ public class PlayerAttackSystem : MonoBehaviour
     }
 
     // [추가] 인벤토리에서 포션을 장착하는 함수
-    public void EquipPotionFromInventory(Item item)
-    {
-        if (item == null || item.data == null) return;
+    //public void EquipPotionFromInventory(Item item)
+    //{
+    //    if (item == null || item.data == null) return;
 
-        // 1. 새 무기 슬롯 생성
-        WeaponSlot newSlot = new WeaponSlot();
-        newSlot.type = WeaponType.PotionBomb;
-        newSlot.itemData = item.data;
-        newSlot.count = item.quantity; // 현재 개수 반영
+    //    // 1. 새 무기 슬롯 생성
+    //    WeaponSlot newSlot = new WeaponSlot();
+    //    newSlot.type = WeaponType.PotionBomb;
+    //    newSlot.itemData = item.data;
+    //    newSlot.count = item.quantity; // 현재 개수 반영
 
-        // 프리팹 설정 (ItemData에 프리팹이 있다고 가정하거나 기본값 사용)
-        // 만약 ItemData에 던지는 프리팹이 없다면 defaultBombPrefab 사용
-        newSlot.specificPrefab = defaultBombPrefab;
+    //    // 프리팹 설정 (ItemData에 프리팹이 있다고 가정하거나 기본값 사용)
+    //    // 만약 ItemData에 던지는 프리팹이 없다면 defaultBombPrefab 사용
+    //    newSlot.specificPrefab = defaultBombPrefab;
 
-        // 2. 현재 슬롯(0번)을 교체 (또는 목록에 추가)
-        // 여기서는 "0번 슬롯을 덮어씌우는 방식"으로 구현
-        if (slots.Count > 0)
-        {
-            slots[0] = newSlot;
-        }
-        else
-        {
-            slots.Add(newSlot);
-        }
+    //    // 2. 현재 슬롯(0번)을 교체 (또는 목록에 추가)
+    //    // 여기서는 "0번 슬롯을 덮어씌우는 방식"으로 구현
+    //    if (slots.Count > 0)
+    //    {
+    //        slots[0] = newSlot;
+    //    }
+    //    else
+    //    {
+    //        slots.Add(newSlot);
+    //    }
 
-        Debug.Log($"무기 장착: {item.data.name} ({item.quantity}개)");
-    }
+    //    Debug.Log($"무기 장착: {item.data.name} ({item.quantity}개)");
+    //}
 
     void UpdateAimDirection()
     {
@@ -155,7 +155,7 @@ public class PlayerAttackSystem : MonoBehaviour
 
     IEnumerator MeleeAttackRoutine()
     {
-        isAttacking = true;
+        isAttack = true;
         if (anim != null) anim.SetTrigger("IsAttack");
         yield return null;
         if (anim != null) anim.ResetTrigger("IsAttack");
@@ -182,7 +182,7 @@ public class PlayerAttackSystem : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.4f);
-        isAttacking = false;
+        isAttack = false;
     }
 
     void HandleBombInput()
@@ -294,21 +294,21 @@ public class PlayerAttackSystem : MonoBehaviour
             GameObject bombObj = Instantiate(prefabToUse, spawnPos, Quaternion.identity);
 
             // 2. 생성된 오브젝트에서 Bomb 컴포넌트 가져오기
-            Bomb bombScript = bombObj.GetComponent<Bomb>();
+            //Bomb bombScript = bombObj.GetComponent<Bomb>();
 
             // 3. ★ 핵심: PotionData 주입 (이 부분이 있어야 새로운 로직이 작동합니다)
-            if (bombScript != null)
-            {
-                // 현재 슬롯의 itemData를 PotionData로 형변환하여 주입
-                if (slots[0].itemData is PotionData pData)
-                {
-                    bombScript.Initialize(pData);
-                }
-                else
-                {
-                    Debug.LogError("현재 슬롯의 아이템이 PotionData 형식이 아닙니다!");
-                }
-            }
+            //if (bombScript != null)
+            //{
+            //// 현재 슬롯의 itemData를 PotionData로 형변환하여 주입
+            //if (slots[0].itemData is PotionData pData)
+            //{
+            //    bombScript.Initialize(pData);
+            //}
+            //else
+            //{
+            //    Debug.LogError("현재 슬롯의 아이템이 PotionData 형식이 아닙니다!");
+            //}
+            //}
 
             UseAmmo(1);
         }
@@ -337,11 +337,11 @@ public class PlayerAttackSystem : MonoBehaviour
         slots[0].count -= amount;
 
         // 인벤토리 데이터와 동기화 (선택 사항)
-        if (Inventory.Instance != null && slots[0].itemData != null)
-        {
-            // 인벤토리에서도 개수를 줄이려면 Inventory에 RemoveItem 로직이 필요함
-            // 현재는 PlayerAttackSystem 슬롯 상에서만 줄어듬
-        }
+        //if (Inventory.Instance != null && slots[0].itemData != null)
+        //{
+        //    // 인벤토리에서도 개수를 줄이려면 Inventory에 RemoveItem 로직이 필요함
+        //    // 현재는 PlayerAttackSystem 슬롯 상에서만 줄어듬
+        //}
 
         if (slots[0].count <= 0)
         {

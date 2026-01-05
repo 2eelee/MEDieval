@@ -88,7 +88,7 @@ public class BossAI : MonoBehaviour
             ball.transform.localScale = transform.localScale *2.0f;
 
             // 방향 설정 (총알 스크립트에 Setup이 있다면)
-            ball.GetComponent<FireBall>().Setup(dir, element);
+            ball.GetComponent<WitchBullet>().Setup(dir, element);
         }
     }
 }

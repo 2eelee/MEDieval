@@ -195,6 +195,11 @@ public class Player : MonoBehaviour
         animator.ResetTrigger("IsAttack");
     }
 
+    public void StopMoving()
+    {
+        animator.SetBool("IsMoving", false);
+    }
+
     // --- 씬 이동 및 위치 저장 관련 ---
 
     void OnEnable()

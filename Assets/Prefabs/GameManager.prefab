@@ -53,7 +53,7 @@ MonoBehaviour:
   playableWidth: 32
   playableHeight: 18
   mainCamera: {fileID: 0}
-  player: {fileID: 3901229306065134731}
+  player: {fileID: 0}
   allMapRooms:
   - {fileID: 11400000, guid: 281cb2b1b56741b4aae9d14976f38bb2, type: 2}
   - {fileID: 11400000, guid: 0648fc3e6498e5c4abec5001fa0aad69, type: 2}

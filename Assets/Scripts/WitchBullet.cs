@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FireBall : MonoBehaviour
+public class WitchBullet : MonoBehaviour
 {
     public float speed = 5.0f; // [cite: 30] 160px/sec = 5 tiles/sec (¸ÅÄªµÊ)
     public int damage = 1;

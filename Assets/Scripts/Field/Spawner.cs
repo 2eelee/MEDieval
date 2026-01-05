@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
     {
         public string itemID;
         public string spritePath;
-        public ItemData itemData; // ★ [추가됨] 여기에 아이템 데이터를 직접 연결하세요!
+        //public ItemData itemData;
     }
 
     public List<SpawnMapping> spawnList;
@@ -88,15 +88,15 @@ public class Spawner : MonoBehaviour
             // ★★★ [핵심 수정] WorldItem 컴포넌트 초기화 (Init 호출) ★★★
             WorldItem worldItemScript = item.GetComponent<WorldItem>();
 
-            if (mapping.itemData != null)
-            {
-                // 여기서 Init을 해줘야 WorldItem의 initialized가 true가 되어 주워집니다.
-                worldItemScript.Init(mapping.itemData, 1);
-            }
-            else
-            {
-                Debug.LogError($"Spawner: {id}에 해당하는 ItemData가 Inspector에 연결되지 않았습니다!");
-            }
+            //if (mapping.itemData != null)
+            //{
+            //    // 여기서 Init을 해줘야 WorldItem의 initialized가 true가 되어 주워집니다.
+            //    worldItemScript.Init(mapping.itemData, 1);
+            //}
+            //else
+            //{
+            //    Debug.LogError($"Spawner: {id}에 해당하는 ItemData가 Inspector에 연결되지 않았습니다!");
+            //}
 
             // 2. 스프라이트 설정 (기존 로직 유지)
             Sprite sprite = Resources.Load<Sprite>(mapping.spritePath);
